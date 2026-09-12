@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="icon" type="image/png" href="image/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог растений - PlantGuide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 25%, #805ad5 50%, #2f855a 75%, #38a169 100%);
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #6b46c1 0%, #38a169 100%);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            color: white;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.3em;
+        }
+
+        /* Навигация */
+        nav {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Заголовок страницы */
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h2 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .page-title p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+        }
+
+        /* Секции каталога */
+        .catalog-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            border-bottom: 3px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        /* Сетка карточек */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* Карточки */
+        .card {
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .card-purple {
+            background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+        }
+
+        .card-green {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .card-blue {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+        }
+
+        .card-orange {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        }
+
+        .card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .card-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Заглушка для будущего контента */
+        .coming-soon {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            border: 2px dashed rgba(255,255,255,0.3);
+        }
+
+        .coming-soon h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .coming-soon p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        /* Подвал */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer p {
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            nav a {
+                display: block;
+                margin: 10px 0;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            .page-title h2 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <h1>📚 Каталог растений</h1>
+        <p>Полная энциклопедия комнатных и садовых растений</p>
+    </header>
+
+    <!-- Навигация -->
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="plants.html">Каталог</a>
+        <a href="indoor.html">Комнатные</a>
+        <a href="succulents.html">Суккуленты</a>
+        <a href="about.html">О нас</a>
+    </nav>
+
+    <!-- Основной контент -->
+    <div class="container">
+
+        <!-- Заголовок -->
+        <div class="page-title">
+            <h2>Выбери категорию</h2>
+            <p>Найди информацию о любом растении</p>
+        </div>
+
+        <!-- Растения по категориям -->
+        <div class="catalog-section">
+            <h2 class="section-title">🌿 Растения</h2>
+            <div class="cards-grid">
+
+                <a href="indoor.html" class="card card-purple">
+                    <span class="card-icon"></span>
+                    <h3>Комнатные растения</h3>
+                    <p>Фикусы, монстеры, спатифиллумы и другие популярные домашние растения</p>
+                </a>
+
+                <a href="succulents.html" class="card card-purple">
+                    <span class="card-icon">🌵</span>
+                    <h3>Суккуленты и кактусы</h3>
+                    <p>Неприхотливые растения для занятых людей. Минимум ухода — максимум красоты</p>
+                </a>
+
+                <a href="flowering.html" class="card card-purple">
+                    <span class="card-icon">🌸</span>
+                    <h3>Цветущие растения</h3>
+                    <p>Орхидеи, розы, герани и другие растения с красивыми цветами</p>
+                </a>
+
+                <a href="garden.html" class="card card-green">
+                    <span class="card-icon">🌳</span>
+                    <h3>Садовые растения</h3>
+                    <p>Деревья, кустарники и цветы для вашего сада и дачи</p>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Уход за растениями -->
+        <div class="catalog-section">
+            <h2 class="section-title">💡 Уход и советы</h2>
+            <div class="cards-grid">
+
+                <a href="watering.html" class="card card-blue">
+                    <span class="card-icon">💧</span>
+                    <h3>Полив и влажность</h3>
+                    <p>Как правильно поливать растения, какая вода лучше, признаки переувлажнения</p>
+                </a>
+
+                <a href="lighting.html" class="card card-blue">
+                    <span class="card-icon">☀️</span>
+                    <h3>Освещение</h3>
+                    <p>Сколько света нужно растениям, как выбрать место, искусственное освещение</p>
+                </a>
+
+                <a href="#" class="card card-orange">
+                    <span class="card-icon">🌡️</span>
+                    <h3>Температура</h3>
+                    <p>Оптимальные условия для разных видов растений, защита от холода и жары</p>
+                </a>
+
+                <a href="#" class="card card-orange">
+                    <span class="card-icon">🧪</span>
+                    <h3>Удобрения</h3>
+                    <p>Чем и когда подкармливать растения, органические и минеральные удобрения</p>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- Заглушка для будущего контента -->
+        <div class="coming-soon">
+            <h3>🚧 Скоро здесь будет больше!</h3>
+            <p>Мы постоянно добавляем новые растения и полезные советы. Заходи почаще!</p>
+        </div>
+
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+        <p>&copy; 2026 PlantGuide. Все права защищены.</p>
+        <p>Создано с любовью к растениям 🌱</p>
+    </footer>
+
+</body>
+</html>
