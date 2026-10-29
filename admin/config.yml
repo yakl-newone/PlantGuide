@@ -2,7 +2,7 @@ backend:
   name: github
   repo: yakl-newone/PlantGuide
   branch: main
-  client_id: 0v23li53yF8frLeCZxhH
+  app_id: 5530514
 
 media_folder: "image"
 public_folder: "/image"
