@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: yakl-newone/PlantGuide
+  branch: main
+
+media_folder: "image"
+public_folder: "/image"
+
+collections:
+  - name: "plants"
+    label: "Растения"
+    folder: "content/plants"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Название", name: "title", widget: "string" }
+      - { label: "Категория", name: "category", widget: "select", options: ["Комнатные", "Суккуленты", "Цветущие", "Садовые"] }
+      - { label: "Полив", name: "watering", widget: "string" }
+      - { label: "Освещение", name: "light", widget: "string" }
+      - { label: "Описание", name: "body", widget: "markdown" }
+      - { label: "Фото", name: "image", widget: "image" }
